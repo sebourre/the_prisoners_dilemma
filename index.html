@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>The prisoner's dilemma</title>
+    </head>
+    <body>
+        <button type="button" id="lock">
+            <img src="Downloads/lock-open.svg" id="lock_open">
+            <img src="Downloads/lock.svg" id="lock_closed">
+        </button>
+
+        <div id="window_top_left"></div>
+        <div id="window_bottom_right"></div>
+
+        <div id="opening_title">
+            <h1></h1>
+            <div id="underline">
+                <div id="progress_bar"></div>
+            </div>
+        </div>
+
+        <nav>
+            <div class="menu_buttons_row" id="menu_buttons_row">
+                <button type="button" class="menu_button" id="button_adjustments">
+                    <img src="Downloads/adjustments.svg">
+                </button>
+                <button type="button" class="menu_button" id="button_opponent">
+                    <img src="Downloads/user.svg">
+                </button>
+                <button type="button" class="menu_button" id="button_history">
+                    <img src="Downloads/clipboard-text.svg">
+                </button>
+                <button type="button" class="menu_button" id="button_rules">
+                    <img src="Downloads/help-hexagon.svg">
+                </button>
+                <button type="button" class="menu_button" id="button_settings">
+                    <img src="Downloads/settings.svg">
+                </button>
+            </div>
+            <div class="menu_content" id="menu_content">
+                <!-- Adjustments -->
+                <div id="adjustments">
+                    <p class="menu_title" id="title_adjustments">Adjustments</p>
+                    <div class="section">
+                        <p class="section_title" id="rounds">Rounds</p>
+                        <div class="section_content" id="section_rounds">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Number of rounds</p>
+                                <input type="number" id="adjustments_rounds_input" value="10" min="10" max="20">
+                                <p class="section_content_additional" id="adjustments_rounds_additional">You will play a total of <span></span> rounds.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <p class="section_title" id="opponents">Opponents</p>
+                        <div class="section_content" id="section_opponents">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Choose your opponent</p>
+                                <select id="adjustments_opponents_select">
+                                    <option value="1" selected>prisoner #16</option>
+                                    <option value="2">prisoner #41</option>
+                                    <option value="3">prisoner #45</option>
+                                    <option value="4">prisoner #70</option>
+                                    <option value="5">prisoner #92</option>
+                                    <option value="6">prisoner #105</option>
+                                    <option value="7">prisoner #111</option>
+                                    <option value="8">prisoner #129</option>
+                                    <option value="9">prisoner #132</option>
+                                    <option value="10">prisoner #167</option>
+                                    <option value="11">prisoner #188</option>
+                                    <option value="12">prisoner #200</option>
+                                </select>
+                                <p class="section_content_additional" id="adjustments_opponents_additional">You will face <span></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <p class="section_title" id="bonuses">Bonuses</p>
+                        <div class="section_content" id="section_bonuses">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Wayback</p>
+                                <input type="checkbox" id="adjustments_bonuses_wayback" checked>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Win rate</p>
+                                <input type="checkbox" id="adjustments_bonuses_winrate" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="section_content_row">
+                            <button type="button" id="adjustments_button_apply">Apply</button>
+                            <button type="button" id="adjustments_button_reset">
+                                <img src="Downloads/refresh.svg">
+                            </button>
+                            <p id="adjustments_button_apply_error"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Opponent -->
+                <div id="opponent">
+                    <p class="menu_title" id="title_opponent">Opponent</p>
+                    <div class="section">
+                        <!-- Prisoner 16 -->
+                        <p class="section_title" id="prisoner16">Prisoner #16</p>
+                        <div class="section_content" id="section_prisoner16">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Raymond "Ray" Dillard</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">42</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">Low</p>
+                            </div>
+                            <p class="opponent_description">
+                                Raymond suffers from a mental illness which makes him very unpredictable.
+                                <br>
+                                He plays randomly, which means there is as much probability that he cooperates or defects.
+                            </p>
+                        </div>
+                        <!-- Prisoner 41 -->
+                        <p class="section_title" id="prisoner41">Prisoner #41</p>
+                        <div class="section_content" id="section_prisoner41">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Marcus Holloway</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">36</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">Low</p>
+                            </div>
+                            <p class="opponent_description">
+                                Marcus is the most unpleasant prisoner here.
+                                <br>
+                                He will always disagree with you, even if he's wrong.
+                            </p>
+                        </div>
+                        <!-- Prisoner 45 -->
+                        <p class="section_title" id="prisoner45">Prisoner #45</p>
+                        <div class="section_content" id="section_prisoner45">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Ethan Cole</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">29</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">Low</p>
+                            </div>
+                            <p class="opponent_description">
+                                Ethan has Alzheimer's disease.
+                                <br>
+                                He will mimic your last move.
+                            </p>
+                        </div>
+                        <!-- Prisoner 70 -->
+                        <p class="section_title" id="prisoner70">Prisoner #70</p>
+                        <div class="section_content" id="section_prisoner70">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Samuel "Sammy" Vargas</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">33</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">Medium</p>
+                            </div>
+                            <p class="opponent_description">
+                                Samuel seems to only live in the past.
+                                <br>
+                                He will mimic the move you did 2 rounds earlier.
+                            </p>
+                        </div>
+                        <!-- Prisoner 92 -->
+                        <p class="section_title" id="prisoner92">Prisoner #92</p>
+                        <div class="section_content" id="section_prisoner92">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Leonard "Lenny" Brooks</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">47</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">Medium</p>
+                            </div>
+                            <p class="opponent_description">
+                                Leonard is a friendly guy.
+                                <br>
+                                But he won't let you step on his feet twice.
+                            </p>
+                        </div>
+                        <!-- Prisoner 105 -->
+                        <p class="section_title" id="prisoner105">Prisoner #105</p>
+                        <div class="section_content" id="section_prisoner105">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Derrick Malone</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">38</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">Medium</p>
+                            </div>
+                            <p class="opponent_description">
+                                Derrick doesn't like being taken for a fool.
+                                <br>
+                                He will punish you twice as hard.
+                            </p>
+                        </div>
+                        <!-- Prisoner 111 -->
+                        <p class="section_title" id="prisoner111">Prisoner #111</p>
+                        <div class="section_content" id="section_prisoner111">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Travis "T-Bone" Keller</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">41</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">High</p>
+                            </div>
+                            <p class="opponent_description">
+                                Travis has no mercy.
+                                <br>
+                                Defect once and he will never forgive you.
+                            </p>
+                        </div>
+                        <!-- Prisoner 129 -->
+                        <p class="section_title" id="prisoner129">Prisoner #129</p>
+                        <div class="section_content" id="section_prisoner129">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Oscar Jennings</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">52</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">High</p>
+                            </div>
+                            <p class="opponent_description">
+                                Oscar is very sneaky.
+                                <br>
+                                He likes imitating the others but once in a while he will defect.
+                            </p>
+                        </div>
+                        <!-- Prisoner 132 -->
+                        <p class="section_title" id="prisoner132">Prisoner #132</p>
+                        <div class="section_content" id="section_prisoner132">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Calvin "Cal" Monroe</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">27</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">High</p>
+                            </div>
+                            <p class="opponent_description">
+                                Calvin was once an interrogator.
+                                <br>
+                                He will test you during the first round and move accordingly.
+                            </p>
+                        </div>
+                        <!-- Prisoner 167 -->
+                        <p class="section_title" id="prisoner167">Prisoner #167</p>
+                        <div class="section_content" id="section_prisoner167">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Victor "Vic" Hanley</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">44</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">Impossible</p>
+                            </div>
+                            <p class="opponent_description">
+                                Calvin likes similarities.
+                                <br>
+                                He will move based on his and yours previous moves.
+                            </p>
+                        </div>
+                        <!-- Prisoner 188 -->
+                        <p class="section_title" id="prisoner188">Prisoner #188</p>
+                        <div class="section_content" id="section_prisoner188">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Frankie Doyle</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">31</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">Impossible</p>
+                            </div>
+                            <p class="opponent_description">
+                                Frankie is mentally fragile and easily influenced.
+                                <br>
+                                The more you cooperate, the more he will. Same thing happen if you defect but harsher.
+                            </p>
+                        </div>
+                        <!-- Prisoner 200 -->
+                        <p class="section_title" id="prisoner200">Prisoner #200</p>
+                        <div class="section_content" id="section_prisoner200">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Name :</p>
+                                <p class="section_content_text">Harold "Hal" Simmons</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Age :</p>
+                                <p class="section_content_text">55</p>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Difficulty :</p>
+                                <p class="difficulty">Impossible</p>
+                            </div>
+                            <p class="opponent_description">
+                                Harold is the one who leads.
+                                <br>
+                                He follows strictly his own rules, no matter what.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- History -->
+                <div id="history">
+                    <p class="menu_title" id="title_history">History</p>
+                </div>
+                <!-- Rules -->
+                <div id="rules">
+                    <p class="menu_title" id="title_rules">Rules</p>
+                    <div class="section">
+                        <div class="section_content_row">
+                            <p id="rules_text">
+                                The game is quite simple.
+                                <br>
+                                You and an another prisoner will face each other during a limited number of rounds.
+                                <br>
+                                You both have two choices, either cooperate or defect.
+                                <br><br>
+                                If both of you <span>cooperate</span>, you and your opponent will gain <span>3 points</span>.
+                                <br>
+                                If you <span>cooperate</span> and your opponent defects, you won't gain <span>any point</span> but your opponent will gain 5 points.
+                                <br>
+                                If both of you <span>defect</span>, you and your opponent will gain <span>1 point</span>.
+                                <br>
+                                If you <span>defect</span> and your opponent cooperates, you will gain <span>5 points</span> and your opponent won't gain any point.
+                                <br><br>
+                                The goal is to finish the game with more points than your opponents.
+                            </p>
+                        </div>
+                        <p class="section_title" id="legend">Legend</p>
+                        <div class="section_content" id="section_legend">
+                            <div class="section_content_row">
+                                <div id="rules_round_cooperate"></div>
+                                <p id="rules_label">
+                                    Round cooperated
+                                </p>
+                            </div>
+                            <div class="section_content_row">
+                                <div id="rules_round_defect"></div>
+                                <p id="rules_label">
+                                    Round defected
+                                </p>
+                            </div>
+                            <div class="section_content_row">
+                                <div id="rules_wayback"></div>
+                                <p id="rules_label">
+                                    Allows you to replay the previous round (can be use once per game)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Settings -->
+                <div id="settings">
+                    <p class="menu_title" id="title_settings">Settings</p>
+                    <div class="section">
+                        <p class="section_title" id="sources">Sources</p>
+                        <div class="section_content" id="section_sources">
+                            <p id="settings_sources_text">
+                                The idea of this website was found after watching Veritasium's YouTube video "This game theory problem will change the way you see the world".
+                                <br>
+                                You can watch it right <a href="https://youtu.be/mScpHTIi-kM?si=yl_dNOruXApqS3P7" target="_blank">here</a>.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="section_content_row">
+                            <p class="section_content_text" id="settings_darkmode_text">Darkmode (off)</p>
+                            <button type="button" class="section_content_button" id="settings_darkmode">
+                                <img src="Downloads/sun.svg">
+                                <img src="Downloads/moon.svg">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="section_content_row">
+                            <p class="section_content_text">Clear localStorage</p>
+                            <button type="button" class="section_content_button" id="settings_clear_localstorage">
+                                <img src="Downloads/trash.svg">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="section_content_row">
+                            <p class="section_content_text">Close website</p>
+                            <button type="button" class="section_content_button" id="settings_close_website">
+                                <img src="Downloads/browser-x.svg">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="scoreboard">
+            <div id="scoreboard_title">Scoreboard</div>
+            <p id="score_player">0</p>
+            <p id="score_opponent">0</p>
+            <div id="scoreboard_buttons">
+                <button type="button" class="scoreboard_button" id="scoreboard_button_info">
+                    <img src="Downloads/info-circle.svg">
+                </button>
+                <div id="scoreboard_round">Round 1</div>
+                <div id="scoreboard_result">Result</div>
+                <button type="button" class="scoreboard_button" id="scoreboard_button_wayback">
+                    <img src="Downloads/arrow-back-up.svg">
+                </button>
+            </div>
+        </div>
+
+        <div class="button_cooperate_defect" id="button_cooperate_defect">
+            <button type="button" id="button_cooperate">Cooperate</button>
+            <button type="button" id="button_defect">Defect</button>
+        </div>
+
+        <div id="winrate">
+            <div id="winrate_title">Win rate</div>
+            <p id="winrate_cooperate">50%</p>
+            <p id="winrate_defect">50%</p>
+            <div id="winrate_number_of_cooperate">0</div>
+            <div id="winrate_number_of_defect">0</div>
+        </div>
+
+        <template id="history_game_template">
+            <div class="section">
+                <p class="section_title">Game #ID</p>
+                <div class="section_content">
+                    <div class="section_content_row">
+                        <p class="section_content_text">Opponent:</p>
+                        <p class="section_content_text">prisoner #id</p>
+                    </div>
+                    <div class="section_content_row">
+                        <p class="section_content_text">Number of rounds:</p>
+                        <p class="section_content_text">...</p>
+                    </div>
+                    <div class="section_content_row">
+                        <p class="section_content_text">Score:</p>
+                        <p class="section_content_text">.../...</p>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <script src="script.js"></script>
+    </body>
+</html>
