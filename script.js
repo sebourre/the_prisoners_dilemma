@@ -43,12 +43,15 @@ const scoreboardButtonInfo = document.getElementById('scoreboard_button_info');
 const scoreboardRound = document.getElementById('scoreboard_round');
 const scoreboardResult = document.getElementById('scoreboard_result');
 const scoreboardButtonWayback = document.getElementById('scoreboard_button_wayback');
+const scoreboardButtonRestart = document.getElementById('scoreboard_button_restart');
+const scoreboardButtonRestartImg = scoreboardButtonRestart.querySelector('img');
 const scorePlayer = document.getElementById('score_player');
 const scoreOpponent = document.getElementById('score_opponent');
 
 const buttonCooperateDefect = document.getElementById('button_cooperate_defect');
 const buttonCooperate = document.getElementById('button_cooperate');
 const buttonDefect = document.getElementById('button_defect');
+const buttonMiddle = document.getElementById('button_middle');
 
 const winrate = document.getElementById('winrate');
 const winrateCooperate = document.getElementById('winrate_cooperate');
@@ -421,6 +424,7 @@ function displayScoreboard(){
     scoreboard.style.top = '10%';
     buttonCooperateDefect.style.left = '50%';
     winrate.style.top = '80%';
+    scoreboardButtonRestart.style.display = 'none';
     let value = adjustmentsRoundsInput.value;
     let round = 1;
     for(let i = 0; i < value; i++){
@@ -451,14 +455,17 @@ function displayScoreboard(){
         const elements = document.querySelectorAll('.round');
         elements.forEach(el => {el.style.color = 'var(--black-hue)';});
     }
+
+    document.getElementById(`round${currentRound}_player`).style.border = '3px solid var(--blue-hue)';
+    document.getElementById(`round${currentRound}_opponent`).style.border = '3px solid var(--blue-hue)';
 }
 
-let imgRotation = 0;
+let imgResetRotation = 0;
 adjustmentsButtonReset.onclick = function(){
     if(isGameOngoing){
         closeWindows();
-        imgRotation += 180;
-        adjustmentsButtonResetImg.style.transform = `rotate(-${imgRotation}deg)`;
+        imgResetRotation += 180;
+        adjustmentsButtonResetImg.style.transform = `rotate(-${imgResetRotation}deg)`;
         setTimeout(() => {
             const rounds = scoreboard.querySelectorAll('.round');
             rounds.forEach(round => round.remove());
@@ -473,6 +480,7 @@ adjustmentsButtonReset.onclick = function(){
             scoreboardRound.textContent = `Round ${currentRound}`;
             scoreboardResult.textContent = 'Result'; 
             scoreboardResult.style.backgroundColor = 'var(--purple-hue)'; 
+            isWaybackUsed = false;
             scoreboardButtonWayback.style.backgroundColor = 'var(--shade-e)';
             scoreboardButtonWayback.style.pointerEvents = 'auto';
             scoreboardButtonWayback.addEventListener('mouseenter', onScoreboardWaybackEnter);
@@ -574,28 +582,37 @@ document.getElementById('legend').addEventListener('click', () => hideContent('l
 // Settings
 document.getElementById('sources').addEventListener('click', () => hideContent('sources'));
 
-function setDarkMode(){
+function setDarkmode(){
     document.body.style.backgroundImage = 'linear-gradient(135deg, var(--shade-a), var(--black-hue), var(--shade-e))';
     settingsDarkmodeText.textContent = 'Darkmode (on)';
 }
-function setLightMode(){
+function setLightmode(){
     document.body.style.backgroundImage = 'linear-gradient(135deg, var(--shade-a), var(--white-hue), var(--shade-e))';
     settingsDarkmodeText.textContent = 'Darkmode (off)';
 }
-let isDark = false;
-settingsDarkmode.onclick = function(){
-    if(!isDark){
-        setDarkMode();
+let isDarkmodeOn = false;
+if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches){
+    setLightmode();
+}else{
+    setDarkmode();
+}
+settingsDarkmode.onclick = updateDarkmode;
+function updateDarkmode(){
+    if(!isDarkmodeOn){
+        setDarkmode();
         settingsDarkmode.querySelector('img:nth-child(1)').style.display = 'none';
         settingsDarkmode.querySelector('img:nth-child(2)').style.display = 'block';
-        isDark = true;
+        settingsDarkmode.style.backgroundColor = 'var(--black-hue)';
+        isDarkmodeOn = true;
     }else{
-        setLightMode();
+        setLightmode();
         settingsDarkmode.querySelector('img:nth-child(1)').style.display = 'block';
         settingsDarkmode.querySelector('img:nth-child(2)').style.display = 'none';
-        isDark = false;
+        settingsDarkmode.style.backgroundColor = 'var(--white-hue)';
+        isDarkmodeOn = false;
     }
 }
+updateDarkmode();
 
 settingsClearLocalStorage.onclick = function(){
     localStorage.clear();
@@ -623,19 +640,30 @@ scoreboardButtonInfo.onclick = function(){
     if(!isInfoOn){
         scoreboardButtonInfo.removeEventListener('mouseleave', onScoreboardInfoLeave);
         const elements = document.querySelectorAll('.round');
-        elements.forEach(el => {el.style.color = 'var(--black-hue)';});
+        elements.forEach(el => {
+            el.style.color = 'var(--black-hue)';
+            el.style.userSelect = 'auto';
+        });
         isInfoOn = true;
     }else{
         scoreboardButtonInfo.addEventListener('mouseleave', onScoreboardInfoLeave);
         const elements = document.querySelectorAll('.round');
-        elements.forEach(el => {el.style.color = 'transparent';});
+        elements.forEach(el => {
+            el.style.color = 'transparent';
+            el.style.userSelect = 'none';
+        });
         isInfoOn = false;
     }
 }
 
 function onScoreboardWaybackEnter(){
-    scoreboardButtonWayback.style.backgroundColor = 'var(--blue-hue)';
-    scoreboardButtonWayback.querySelector('img').style.filter = 'invert(1)';
+    if(currentRound > 1){
+        scoreboardButtonWayback.style.backgroundColor = 'var(--blue-hue)';
+        scoreboardButtonWayback.querySelector('img').style.filter = 'invert(1)';
+        scoreboardButtonWayback.style.cursor = 'pointer';
+    }else{
+        scoreboardButtonWayback.style.cursor = 'not-allowed';
+    }
 }
 function onScoreboardWaybackLeave(){
     scoreboardButtonWayback.style.backgroundColor = 'var(--shade-e)';
@@ -643,8 +671,10 @@ function onScoreboardWaybackLeave(){
 }
 scoreboardButtonWayback.addEventListener('mouseenter', onScoreboardWaybackEnter);
 scoreboardButtonWayback.addEventListener('mouseleave', onScoreboardWaybackLeave);
+let isWaybackUsed = false;
 scoreboardButtonWayback.onclick = function(){
     if(currentRound > 1){
+        isWaybackUsed = true;
         currentRound--;
         scoreboardRound.textContent = `Round ${currentRound}`;
         scoreboardButtonWayback.style.backgroundColor = 'var(--red-hue)';
@@ -655,7 +685,7 @@ scoreboardButtonWayback.onclick = function(){
         const playedRoundPlayer = document.getElementById(`round${currentRound}_player`);
         const playedRoundOpponent = document.getElementById(`round${currentRound}_opponent`);
         const move = window.getComputedStyle(playedRoundOpponent).backgroundColor;
-        updateWinrate(move, true);
+        updateWinrate(move, isWaybackUsed);
         playedRoundPlayer.style.backgroundColor = 'var(--white-hue)';
         playedRoundPlayer.textContent = '';
         playedRoundOpponent.style.backgroundColor = 'var(--white-hue)';
@@ -679,60 +709,107 @@ scoreboardButtonWayback.onclick = function(){
     }
 }
 
+scoreboardButtonRestart.addEventListener('mouseenter', () => {
+    scoreboardButtonRestart.style.backgroundColor = 'var(--blue-hue)';
+    scoreboardButtonRestartImg.style.filter = 'invert(1)';
+});
+scoreboardButtonRestart.addEventListener('mouseleave', () => {
+    scoreboardButtonRestart.style.backgroundColor = 'var(--shade-e)';
+    scoreboardButtonRestartImg.style.filter = 'none';
+});
+let imgRestartRotation = 0;
+scoreboardButtonRestart.onclick = function(){
+    closeWindows();
+    imgRestartRotation += 360;
+    scoreboardButtonRestartImg.style.transform = `rotate(${imgRestartRotation}deg)`;
+    setTimeout(() => {
+        const rounds = scoreboard.querySelectorAll('.round');
+        rounds.forEach(round => round.remove());
+        currentRound = 1;
+        currentScorePlayer = 0;
+        currentScoreOpponent = 0;
+        scorePlayer.textContent = currentScorePlayer;
+        scoreOpponent.textContent = currentScoreOpponent;
+        adjustmentsButtonApplyError.textContent = '';
+        scorePlayer.style.backgroundColor = 'var(--purple-hue)';
+        scoreOpponent.style.backgroundColor = 'var(--purple-hue)';
+        scoreboardRound.textContent = `Round ${currentRound}`;
+        scoreboardResult.textContent = 'Result'; 
+        scoreboardResult.style.backgroundColor = 'var(--purple-hue)'; 
+        isWaybackUsed = false;
+        scoreboardButtonWayback.style.backgroundColor = 'var(--shade-e)';
+        scoreboardButtonWayback.style.pointerEvents = 'auto';
+        scoreboardButtonWayback.addEventListener('mouseenter', onScoreboardWaybackEnter);
+        scoreboardButtonWayback.addEventListener('mouseleave', onScoreboardWaybackLeave);
+        roundsCooperated = 0;
+        roundsDefected = 0;
+        reactive = .5;
+        winrateNumberOfCooperate.textContent = roundsCooperated;
+        winrateNumberOfDefect.textContent = roundsDefected;
+        winrateCooperate.textContent = '50%';
+        winrateDefect.textContent = '50%';
+        winrate.style.backgroundPositionX = '50%';
+    }, 500);
+    setTimeout(() => {
+        openWindows();
+        scoreboardButtonRestart.style.display = 'none';
+
+        let value = adjustmentsRoundsInput.value;
+        let round = 1;
+        for(let i = 0; i < value; i++){
+            const newRound = document.createElement('div');
+            newRound.classList.add('round');
+            newRound.id = (`round${round}_player`);
+            round++;
+            scoreboard.insertBefore(newRound, scoreboard.querySelector('p:nth-of-type(1)'));
+        }
+
+        round = 1;
+        for(let i = 0; i < value; i++){
+            const newRound = document.createElement('div');
+            newRound.classList.add('round');
+            newRound.id = (`round${round}_opponent`);
+            round++;
+            scoreboard.insertBefore(newRound, scoreboard.querySelector('p:nth-of-type(1)'));
+        }
+
+        if(isInfoOn){
+            const elements = document.querySelectorAll('.round');
+            elements.forEach(el => {el.style.color = 'var(--black-hue)';});
+        }
+
+        document.getElementById(`round${currentRound}_player`).style.border = '3px solid var(--blue-hue)';
+        document.getElementById(`round${currentRound}_opponent`).style.border = '3px solid var(--blue-hue)';
+    }, 800);
+}
+
 // Button cooperate-defect
 function onCooperateEnter(){
-    buttonCooperateDefect.style.backgroundPositionX = '0';
-    buttonCooperate.style.width = '70%';
     buttonCooperate.style.textShadow = '2px 2px 0 var(--white-hue)';
-    buttonDefect.style.width = '30%';
-    buttonDefect.textContent = 'Defec';
-    setTimeout(() => {buttonDefect.textContent = 'Defe';}, 50);
-    setTimeout(() => {buttonDefect.textContent = 'Def';}, 100);
-    setTimeout(() => {buttonDefect.textContent = 'De';}, 150);
-    setTimeout(() => {buttonDefect.textContent = 'D';}, 200);
-    windowTopLeft.style.animation = 'bouncing_window_tl .5s ease-in-out infinite';
+    buttonCooperate.style.outline = '5px solid var(--shade-a)';
+    buttonMiddle.querySelector('img:first-child').style.display = 'block';
+    buttonMiddle.style.backgroundPosition = '0% 0%';
+    windowTopLeft.style.animation = 'bouncing_window_tl .8s ease-in-out infinite';
 }
 function onCooperateLeave(){
-    buttonCooperateDefect.style.backgroundPositionX = '50%';
-    buttonCooperate.style.width = '50%';
     buttonCooperate.style.textShadow = '0 0 0 var(--white-hue)';
-    buttonDefect.style.width = '50%';
-    buttonDefect.textContent = 'Defect';
-    buttonDefect.textContent = 'De';
-    setTimeout(() => {buttonDefect.textContent = 'Def';}, 50);
-    setTimeout(() => {buttonDefect.textContent = 'Defe';}, 100);
-    setTimeout(() => {buttonDefect.textContent = 'Defec';}, 150);
-    setTimeout(() => {buttonDefect.textContent = 'Defect';}, 200);
+    buttonCooperate.style.outline = '5px solid transparent';
+    buttonMiddle.querySelector('img:first-child').style.display = 'none';
+    buttonMiddle.style.backgroundPosition = '50% 50%';
     windowTopLeft.style.animation = 'none';
 }
 function onDefectEnter(){
-    buttonCooperateDefect.style.backgroundPositionX = '100%';
-    buttonDefect.style.width = '70%';
     buttonDefect.style.textShadow = '2px 2px 0 var(--white-hue)';
-    buttonCooperate.style.width = '30%';
-    buttonCooperate.textContent = 'Cooperat';
-    setTimeout(() => {buttonCooperate.textContent = 'Coopera';}, 30);
-    setTimeout(() => {buttonCooperate.textContent = 'Cooper';}, 60);
-    setTimeout(() => {buttonCooperate.textContent = 'Coope';}, 90);
-    setTimeout(() => {buttonCooperate.textContent = 'Coop';}, 120);
-    setTimeout(() => {buttonCooperate.textContent = 'Coo';}, 150);
-    setTimeout(() => {buttonCooperate.textContent = 'Co';}, 180);
-    setTimeout(() => {buttonCooperate.textContent = 'C';}, 210);
-    windowBottomRight.style.animation = 'bouncing_window_br .5s ease-in-out infinite';
+    buttonDefect.style.outline = '5px solid var(--shade-e)';
+    buttonMiddle.querySelector('img:last-child').style.display = 'block';
+    buttonMiddle.style.backgroundPosition = '100% 100%';
+    windowBottomRight.style.animation = 'bouncing_window_br .8s ease-in-out infinite';
 }
 function onDefectLeave(){
-    buttonCooperateDefect.style.backgroundPositionX = '50%';
-    buttonDefect.style.width = '50%';
     buttonDefect.style.textShadow = '0 0 0 var(--white-hue)';
-    buttonCooperate.style.width = '50%';
-    buttonCooperate.textContent = 'Co';
-    setTimeout(() => {buttonCooperate.textContent = 'Coo';}, 30);
-    setTimeout(() => {buttonCooperate.textContent = 'Coop';}, 60);
-    setTimeout(() => {buttonCooperate.textContent = 'Coope';}, 90);
-    setTimeout(() => {buttonCooperate.textContent = 'Cooper';}, 120);
-    setTimeout(() => {buttonCooperate.textContent = 'Coopera';}, 150);
-    setTimeout(() => {buttonCooperate.textContent = 'Cooperat';}, 180);
-    setTimeout(() => {buttonCooperate.textContent = 'Cooperate';}, 210);
+    buttonDefect.style.outline = '5px solid transparent';
+    buttonMiddle.querySelector('img:last-child').style.display = 'none';
+    buttonMiddle.style.backgroundPosition = '50% 50%';
     windowBottomRight.style.animation = 'none';
 }
 buttonCooperate.addEventListener('mouseenter', onCooperateEnter);
@@ -752,12 +829,20 @@ buttonCooperate.onclick = function(){
         currentRoundPlayer.style.backgroundColor = 'gold';
         opponentMove(playerMove, currentRoundOpponent);
         updateScores(currentRoundPlayer, currentRoundOpponent);
+        currentRoundPlayer.style.border = '3px solid var(--black-hue)';
+        currentRoundOpponent.style.border = '3px solid var(--black-hue)';
         currentRound++;
+        if(currentRound <= numberOfRounds){
+            document.getElementById(`round${currentRound}_player`).style.border = '3px solid var(--blue-hue)';
+            document.getElementById(`round${currentRound}_opponent`).style.border = '3px solid var(--blue-hue)';
+        }
         if(currentRound <= numberOfRounds){
             scoreboardRound.textContent = `Round ${currentRound}`;
         }else{
             scoreboardRound.textContent = 'Game over';
+            scoreboardButtonWayback.style.backgroundColor = 'var(--red-hue)';
             scoreboardButtonWayback.style.pointerEvents = 'none';
+            scoreboardButtonRestart.style.display = 'flex';
             updateHistory();
         }
     }
@@ -770,12 +855,20 @@ buttonDefect.onclick = function(){
         currentRoundPlayer.style.backgroundColor = 'violet';
         opponentMove(playerMove, currentRoundOpponent);
         updateScores(currentRoundPlayer, currentRoundOpponent);
+        currentRoundPlayer.style.border = '3px solid var(--black-hue)';
+        currentRoundOpponent.style.border = '3px solid var(--black-hue)';
         currentRound++;
+        if(currentRound <= numberOfRounds){
+            document.getElementById(`round${currentRound}_player`).style.border = '3px solid var(--blue-hue)';
+            document.getElementById(`round${currentRound}_opponent`).style.border = '3px solid var(--blue-hue)';
+        }
         if(currentRound <= numberOfRounds){
             scoreboardRound.textContent = `Round ${currentRound}`;
         }else{
             scoreboardRound.textContent = 'Game over';
+            scoreboardButtonWayback.style.backgroundColor = 'var(--red-hue)';
             scoreboardButtonWayback.style.pointerEvents = 'none';
+            scoreboardButtonRestart.style.display = 'flex';
             updateHistory();
         }
     }
@@ -1120,6 +1213,10 @@ function updateHistory(){
     texts[0].textContent = `prisoner #${prisonersID[currentOpponentValue - 1]}`;
     texts[1].textContent = numberOfRounds;
     texts[2].textContent = `${currentScorePlayer}/${currentScoreOpponent}`;
+    texts[3].textContent = isWaybackUsed;
+    texts[4].textContent = winrateCooperate.textContent;
+    const date = new Date();
+    texts[5].textContent = date.toLocaleString();
     history.appendChild(clone);
     const ID = gameID;
     document.getElementById(`game${gameID}`).addEventListener('click', () => hideContent(`game${ID}`));

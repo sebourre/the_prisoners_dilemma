@@ -1,7 +1,8 @@
 *{
     box-sizing: border-box;
     margin: 0;
-    padding: 0;
+    padding: 0; 
+    scrollbar-color: var(--black-hue) transparent
 }
 
 :root{
@@ -29,7 +30,7 @@ body{
     font-size: 1em;
     letter-spacing: 0;
     background-image: linear-gradient(135deg, var(--shade-a), var(--white-hue), var(--shade-e));
-    background-size: 1000%;
+    background-size: 2000%;
     background-position: 50% 50%;
 }
 
@@ -336,7 +337,8 @@ nav{
 
 #history{
     transition: .3s;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     padding: 0;
     width: 0;
     height: 100%;
@@ -433,7 +435,7 @@ nav{
     cursor: pointer;
 }
 
-.section_content_button:hover{
+.section_content_button:not(#settings_darkmode):hover{
     transition: .3s;
     background-color: var(--blue-hue);
 }
@@ -444,7 +446,7 @@ nav{
     height: 36px;
 }
 
-.section_content_button:hover img{
+.section_content_button:not(#settings_darkmode):hover img{
     transition: .3s;
     filter: invert(1);
 }
@@ -602,7 +604,7 @@ input[type="checkbox"]{
 .opponent_selected_name::after{
     content: ' - Current opponent';
     color: var(--blue-hue);
-    font-size: .9em;
+    font-size: .85em;
     font-style: italic;
 }
 
@@ -671,6 +673,10 @@ input[type="checkbox"]{
     font-style: italic;
 }
 
+#date{
+    font-style: italic;
+}
+
 /* Rules */
 #rules_text{
     width: fit-content;
@@ -733,6 +739,7 @@ input[type="checkbox"]{
 
 #settings_darkmode img:nth-child(2){
     display: none;
+    filter: invert(1);
 }
 
 /* Scoreboard */
@@ -794,6 +801,7 @@ input[type="checkbox"]{
     border-radius: 10px;
     background-color: var(--white-hue);
     cursor: default;
+    user-select: none;
 }
 
 #score_player{
@@ -836,7 +844,7 @@ input[type="checkbox"]{
     position: absolute;
     top: 100%;
     padding: 1rem;
-    width: fit-content;
+    width: max-content;
     height: fit-content;
 }
 
@@ -864,7 +872,7 @@ input[type="checkbox"]{
     transition: .3s;
     display: flex;
     align-items: center;
-    padding: 0 1rem 0 1rem;
+    padding: 0 .7rem 0 .7rem;
     width: fit-content;
     height: auto;
     font-weight: bold;
@@ -878,7 +886,7 @@ input[type="checkbox"]{
     transition: .3s;
     display: flex;
     align-items: center;
-    padding: 0 1rem 0 1rem;
+    padding: 0 .7rem 0 .7rem;
     width: fit-content;
     height: auto;
     color: white;
@@ -889,7 +897,7 @@ input[type="checkbox"]{
     cursor: default;
 }
 
-#scoreboard_button_wayback{
+#scoreboard_button_wayback, #scoreboard_button_restart{
     background-color: var(--shade-e);
 }
 
@@ -897,48 +905,80 @@ input[type="checkbox"]{
 #button_cooperate_defect{
     transition: .3s;
     display: flex;
-    align-items: center;
-    justify-content: center;
     position: absolute;
     top: 50%;
     left: 115%;
     transform: translate(-50%, -50%);
-    width: 25rem;
+    width: 30rem;
     height: fit-content;
     color: var(--white-hue);
     border: 5px solid var(--black-hue);
     border-radius: 50vh;
-    background-image: linear-gradient(135deg, gold 49%, violet 51%);
-    background-size: 150%;
-    background-position-x: 50%;
+    background-image: linear-gradient(to right, gold 50%, violet 50%);
+    user-select: none;
 }
 
 #button_cooperate{
-    transition: .3s;
+    transition: .1s;
     overflow: hidden;
-    padding: 10px 0 10px 0;
+    padding: 10px 0 10px 18px;
     width: 50%;
     height: 100%;
     color: var(--black-hue);
-    font-size: 1.7rem;
+    text-align: start;
+    font-size: 1.8rem;
     font-weight: bold;
     border: none;
+    border-radius: 50vh;
+    outline: 5px solid transparent;
+    outline-offset: 5px;
     background-color: transparent;
     cursor: pointer;
 }
 
 #button_defect{
-    transition: .3s;
+    transition: .1s;
     overflow: hidden;
-    padding: 10px 0 10px 0;
+    padding: 10px 50px 10px 0;
     width: 50%;
     height: 100%;
     color: var(--black-hue);
-    font-size: 1.7rem;
+    text-align: end;
+    font-size: 1.8rem;
     font-weight: bold;
     border: none;
+    border-radius: 50vh;
+    outline: 5px solid transparent;
+    outline-offset: 5px;
     background-color: transparent;
     cursor: pointer;
+}
+
+#button_middle{
+    transition: .1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    width: 7rem;
+    height: 7rem;
+    color: var(--black-hue);
+    border: 5px solid var(--black-hue);
+    border-radius: 50%;
+    background-image: linear-gradient(135deg, var(--shade-a) 45%, var(--shade-e) 55%);
+    background-size: 300%;
+    background-position: 50% 50%;
+}
+
+#button_middle img{
+    transition: .1s;
+    display: none;
+    width: 70%;
+    height: 70%;
 }
 
 /* Win rate */

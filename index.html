@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="Downloads/key.svg">
         <title>The prisoner's dilemma</title>
     </head>
     <body>
@@ -463,12 +464,19 @@
                 <button type="button" class="scoreboard_button" id="scoreboard_button_wayback">
                     <img src="Downloads/arrow-back-up.svg">
                 </button>
+                <button type="button" class="scoreboard_button" id="scoreboard_button_restart">
+                    <img src="Downloads/rotate-clockwise.svg">
+                </button>
             </div>
         </div>
 
         <div class="button_cooperate_defect" id="button_cooperate_defect">
             <button type="button" id="button_cooperate">Cooperate</button>
             <button type="button" id="button_defect">Defect</button>
+            <button type="button" id="button_middle">
+                <img src="Downloads/heart-handshake.svg">
+                <img src="Downloads/playstation-x.svg">
+            </button>
         </div>
 
         <div id="winrate">
@@ -494,6 +502,18 @@
                     <div class="section_content_row">
                         <p class="section_content_text">Score:</p>
                         <p class="section_content_text">.../...</p>
+                    </div>
+                    <div class="section_content_row">
+                        <p class="section_content_text">Wayback used:</p>
+                        <p class="section_content_text">?</p>
+                    </div>
+                    <div class="section_content_row">
+                        <p class="section_content_text">Win rate:</p>
+                        <p class="section_content_text">...</p>
+                    </div>
+                    <div class="section_content_row">
+                        <p class="section_content_text">Date:</p>
+                        <p class="section_content_text" id="date">...</p>
                     </div>
                 </div>
             </div>
