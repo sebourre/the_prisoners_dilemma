@@ -26,6 +26,10 @@ const adjustmentsOpponentsSelect = document.getElementById('adjustments_opponent
 const adjustmentsOpponentsAdditional = document.querySelector('#adjustments_opponents_additional span');
 const adjustmentsBonusesWayback = document.getElementById('adjustments_bonuses_wayback');
 const adjustmentsBonusesWinrate = document.getElementById('adjustments_bonuses_winrate');
+const adjustmentsBonusesPlus = document.getElementById('adjustments_bonuses_plus');
+const adjustmentsColorsDefault = document.getElementById('adjustments_colors_default');
+const adjustmentsColorsSunset = document.getElementById('adjustments_colors_sunset');
+const adjustmentsColorsSlime = document.getElementById('adjustments_colors_slime');
 const adjustmentsButtonApply = document.getElementById('adjustments_button_apply');
 const adjustmentsButtonReset = document.getElementById('adjustments_button_reset');
 const adjustmentsButtonResetImg = adjustmentsButtonReset.querySelector('img');
@@ -33,7 +37,6 @@ const adjustmentsButtonApplyError = document.getElementById('adjustments_button_
 const settingsDarkmode = document.getElementById('settings_darkmode');
 const settingsDarkmodeText = document.getElementById('settings_darkmode_text');
 const settingsClearLocalStorage = document.getElementById('settings_clear_localstorage');
-const settingsCloseWebsite = document.getElementById('settings_close_website');
 
 const historyGameTemplate = document.getElementById('history_game_template');
 
@@ -58,6 +61,8 @@ const winrateCooperate = document.getElementById('winrate_cooperate');
 const winrateDefect = document.getElementById('winrate_defect');
 const winrateNumberOfCooperate = document.getElementById('winrate_number_of_cooperate');
 const winrateNumberOfDefect = document.getElementById('winrate_number_of_defect');
+
+const plus = document.getElementById('plus');
 
 document.addEventListener('keydown', function(e){
     if(e.key === 'w'){
@@ -323,6 +328,7 @@ function hideContent(section){
 document.getElementById('rounds').addEventListener('click', () => hideContent('rounds'));
 document.getElementById('opponents').addEventListener('click', () => hideContent('opponents'));
 document.getElementById('bonuses').addEventListener('click', () => hideContent('bonuses'));
+document.getElementById('colors').addEventListener('click', () => hideContent('colors'));
 
 function updateValue(input, additional, e){
     const value = e ? e.target.value : input.value;
@@ -392,6 +398,44 @@ adjustmentsBonusesWinrate.addEventListener('change', () => {
         winrate.style.display = 'none';
     }
 });
+adjustmentsBonusesPlus.addEventListener('change', () => {
+    if(adjustmentsBonusesPlus.checked){
+        plus.style.display = 'flex';
+    }else{
+        plus.style.display = 'none';
+    }
+});
+
+adjustmentsColorsDefault.onclick = function(){
+    adjustmentsColorsDefault.style.border = '3px solid var(--blue-hue)';
+    adjustmentsColorsSunset.style.border = '3px solid var(--black-hue)';
+    adjustmentsColorsSlime.style.border = '3px solid var(--black-hue)';
+    document.documentElement.style.setProperty('--shade-a', 'gold');
+    document.documentElement.style.setProperty('--shade-b', '#FBC23D');
+    document.documentElement.style.setProperty('--shade-c', '#F7AD77');
+    document.documentElement.style.setProperty('--shade-d', '#F398B2');
+    document.documentElement.style.setProperty('--shade-e', 'violet');
+}
+adjustmentsColorsSunset.onclick = function(){
+    adjustmentsColorsDefault.style.border = '3px solid var(--black-hue)';
+    adjustmentsColorsSunset.style.border = '3px solid var(--blue-hue)';
+    adjustmentsColorsSlime.style.border = '3px solid var(--black-hue)';
+    document.documentElement.style.setProperty('--shade-a', 'orange');
+    document.documentElement.style.setProperty('--shade-b', '#E07C1F');
+    document.documentElement.style.setProperty('--shade-c', '#C0533F');
+    document.documentElement.style.setProperty('--shade-d', '#A02A60');
+    document.documentElement.style.setProperty('--shade-e', 'purple');
+}
+adjustmentsColorsSlime.onclick = function(){
+    adjustmentsColorsDefault.style.border = '3px solid var(--black-hue)';
+    adjustmentsColorsSunset.style.border = '3px solid var(--black-hue)';
+    adjustmentsColorsSlime.style.border = '3px solid var(--blue-hue)';
+    document.documentElement.style.setProperty('--shade-a', 'lime');
+    document.documentElement.style.setProperty('--shade-b', '#00DF00');
+    document.documentElement.style.setProperty('--shade-c', '#00C000');
+    document.documentElement.style.setProperty('--shade-d', '#009F00');
+    document.documentElement.style.setProperty('--shade-e', 'green');
+}
 
 let isGameOngoing = false;
 adjustmentsButtonApply.onclick = function(){
@@ -422,8 +466,9 @@ function isNumberOfRoundsCorrect(number){
 }
 function displayScoreboard(){
     scoreboard.style.top = '10%';
-    buttonCooperateDefect.style.left = '50%';
+    buttonCooperateDefect.style.opacity = '1';
     winrate.style.top = '80%';
+    plus.style.right = '10%';
     scoreboardButtonRestart.style.display = 'none';
     let value = adjustmentsRoundsInput.value;
     let round = 1;
@@ -488,8 +533,9 @@ adjustmentsButtonReset.onclick = function(){
             scoreboard.style.top = '-25%';
             scoreboard.style.left = '50%';
             scoreboard.style.transform = 'translateX(-50%)';
-            buttonCooperateDefect.style.left = '115%';
+            buttonCooperateDefect.style.opacity = '0';
             winrate.style.top = '115%';
+            plus.style.right = '-20%';
             roundsCooperated = 0;
             roundsDefected = 0;
             reactive = .5;
@@ -619,10 +665,6 @@ settingsClearLocalStorage.onclick = function(){
     settingsClearLocalStorage.style.backgroundColor = 'var(--red-hue)';
     settingsClearLocalStorage.style.pointerEvents = 'none';
     settingsClearLocalStorage.querySelector('img').style.filter = 'invert(1)';
-}
-
-settingsCloseWebsite.onclick = function(){
-    window.close();
 }
 
 // Scoreboard
@@ -826,7 +868,7 @@ buttonCooperate.onclick = function(){
     if(currentRound <= numberOfRounds){
         const currentRoundPlayer = document.getElementById(`round${currentRound}_player`);
         const currentRoundOpponent = document.getElementById(`round${currentRound}_opponent`);
-        currentRoundPlayer.style.backgroundColor = 'gold';
+        currentRoundPlayer.style.backgroundColor = 'var(--shade-a)';
         opponentMove(playerMove, currentRoundOpponent);
         updateScores(currentRoundPlayer, currentRoundOpponent);
         currentRoundPlayer.style.border = '3px solid var(--black-hue)';
@@ -852,7 +894,7 @@ buttonDefect.onclick = function(){
     if(currentRound <= numberOfRounds){
         const currentRoundPlayer = document.getElementById(`round${currentRound}_player`);
         const currentRoundOpponent = document.getElementById(`round${currentRound}_opponent`);
-        currentRoundPlayer.style.backgroundColor = 'violet';
+        currentRoundPlayer.style.backgroundColor = 'var(--shade-e)';
         opponentMove(playerMove, currentRoundOpponent);
         updateScores(currentRoundPlayer, currentRoundOpponent);
         currentRoundPlayer.style.border = '3px solid var(--black-hue)';
@@ -878,6 +920,15 @@ const opponentMoves = [
     'gold', 
     'violet'
 ]
+function linkMoveToColor(move){
+    if(move == 'gold'){
+        move = 'var(--shade-a)';
+        return move;
+    }else if(move == 'violet'){
+        move = 'var(--shade-e)';
+        return move;
+    }
+}
 let reactive = .5;
 function opponentMove(pM, cRO){
     let move;
@@ -887,17 +938,17 @@ function opponentMove(pM, cRO){
         case '1': 
             // Random
             move = opponentMoves[Math.floor(Math.random() * opponentMoves.length)];
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '2': 
             // Antagonist
             if(pM == 'cooperate'){
                 move = 'violet';
-                cRO.style.backgroundColor = move;
+                cRO.style.backgroundColor = linkMoveToColor(move);
             }else if(pM == 'defect'){
                 move = 'gold';
-                cRO.style.backgroundColor = move;
+                cRO.style.backgroundColor = linkMoveToColor(move);
             }
             updateWinrate(move, false);
             break;
@@ -912,7 +963,7 @@ function opponentMove(pM, cRO){
                     move = 'violet';
                 }
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '4': 
@@ -927,7 +978,7 @@ function opponentMove(pM, cRO){
                     move = 'violet';
                 }
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '5': 
@@ -942,7 +993,7 @@ function opponentMove(pM, cRO){
                     move = 'gold';
                 }
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '6': 
@@ -961,7 +1012,7 @@ function opponentMove(pM, cRO){
                     move = 'gold';
                 }
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '7': 
@@ -977,7 +1028,7 @@ function opponentMove(pM, cRO){
                     move = 'gold';
                 }
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '8': 
@@ -996,7 +1047,7 @@ function opponentMove(pM, cRO){
                     move = 'violet';
                 }
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '9': 
@@ -1015,7 +1066,7 @@ function opponentMove(pM, cRO){
                 const previous2RoundOpponent = document.getElementById(`round${currentRound - 2}_opponent`);
                 move = previous2RoundOpponent.style.backgroundColor;
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '10': 
@@ -1034,7 +1085,7 @@ function opponentMove(pM, cRO){
                     move = 'violet';
                 }
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '11': 
@@ -1050,12 +1101,12 @@ function opponentMove(pM, cRO){
             }else{
                 if(previousRoundPlayer.style.backgroundColor == 'gold'){
                     if(reactive < 1){
-                        reactive += .1;
+                        reactive += 0.1;
                         console.log(reactive);
                     }
                 }else{
                     if(reactive > 0){
-                        reactive -= .2;
+                        reactive -= 0.2;
                         console.log(reactive);
                     }
                 }
@@ -1066,7 +1117,7 @@ function opponentMove(pM, cRO){
                     move = 'violet';
                 }
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '12': 
@@ -1111,7 +1162,7 @@ function opponentMove(pM, cRO){
                     move = 'violet';
                 }
             }
-            cRO.style.backgroundColor = move;
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         default:

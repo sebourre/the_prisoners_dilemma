@@ -89,6 +89,27 @@
                                 <p class="section_content_text">Win rate</p>
                                 <input type="checkbox" id="adjustments_bonuses_winrate" checked>
                             </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Plus</p>
+                                <input type="checkbox" id="adjustments_bonuses_plus" checked>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <p class="section_title" id="colors">Colors</p>
+                        <div class="section_content" id="section_colors">
+                            <div class="section_content_row">
+                                <p class="section_content_text">Default</p>
+                                <button type="button" class="adjustments_colors_button" id="adjustments_colors_default"></button>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Sunset</p>
+                                <button type="button" class="adjustments_colors_button" id="adjustments_colors_sunset"></button>
+                            </div>
+                            <div class="section_content_row">
+                                <p class="section_content_text">Slime</p>
+                                <button type="button" class="adjustments_colors_button" id="adjustments_colors_slime"></button>
+                            </div>
                         </div>
                     </div>
                     <div class="section">
@@ -379,9 +400,9 @@
                                 <br>
                                 If you <span>cooperate</span> and your opponent defects, you won't gain <span>any point</span> but your opponent will gain 5 points.
                                 <br>
-                                If both of you <span>defect</span>, you and your opponent will gain <span>1 point</span>.
-                                <br>
                                 If you <span>defect</span> and your opponent cooperates, you will gain <span>5 points</span> and your opponent won't gain any point.
+                                <br>
+                                If both of you <span>defect</span>, you and your opponent will gain <span>1 point</span>.
                                 <br><br>
                                 The goal is to finish the game with more points than your opponents.
                             </p>
@@ -439,20 +460,17 @@
                             </button>
                         </div>
                     </div>
-                    <div class="section">
-                        <div class="section_content_row">
-                            <p class="section_content_text">Close website</p>
-                            <button type="button" class="section_content_button" id="settings_close_website">
-                                <img src="Downloads/browser-x.svg">
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </nav>
 
         <div id="scoreboard">
-            <div id="scoreboard_title">Scoreboard</div>
+            <div id="scoreboard_title">
+                Scoreboard
+                <div class="icon" id="scoreboard_icon">
+                    <img src="Downloads/chart-bar.svg">
+                </div>
+            </div>
             <p id="score_player">0</p>
             <p id="score_opponent">0</p>
             <div id="scoreboard_buttons">
@@ -480,11 +498,67 @@
         </div>
 
         <div id="winrate">
-            <div id="winrate_title">Win rate</div>
+            <div id="winrate_title">
+                Win rate
+                <div class="icon" id="winrate_icon">
+                    <img src="Downloads/activity-heartbeat.svg">
+                </div>
+            </div>
             <p id="winrate_cooperate">50%</p>
             <p id="winrate_defect">50%</p>
             <div id="winrate_number_of_cooperate">0</div>
             <div id="winrate_number_of_defect">0</div>
+        </div>
+
+        <div id="plus">
+            <div id="plus_title">
+                Plus
+                <div class="icon" id="plus_icon">
+                    <img src="Downloads/chevrons-up.svg">
+                </div>
+            </div>
+            <div id="plus_rules">
+                <div class="plus_rules_row">
+                    <div class="plus_rules_row_item">
+                        <img src="Downloads/heart-handshake.svg">
+                        <p>+3</p>
+                    </div>
+                    <div class="plus_rules_row_item">
+                        <p>+3</p>
+                        <img src="Downloads/heart-handshake.svg">
+                    </div>
+                </div>
+                <div class="plus_rules_row">
+                    <div class="plus_rules_row_item">
+                        <img src="Downloads/heart-handshake.svg">
+                        <p>+0</p>
+                    </div>
+                    <div class="plus_rules_row_item">
+                        <p>+5</p>
+                        <img src="Downloads/playstation-x.svg">
+                    </div>
+                </div>
+                <div class="plus_rules_row">
+                    <div class="plus_rules_row_item">
+                        <img src="Downloads/playstation-x.svg">
+                        <p>+5</p>
+                    </div>
+                    <div class="plus_rules_row_item">
+                        <p>+0</p>
+                        <img src="Downloads/heart-handshake.svg">
+                    </div>
+                </div>
+                <div class="plus_rules_row">
+                    <div class="plus_rules_row_item">
+                        <img src="Downloads/playstation-x.svg">
+                        <p>+1</p>
+                    </div>
+                    <div class="plus_rules_row_item">
+                        <p>+1</p>
+                        <img src="Downloads/playstation-x.svg">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <template id="history_game_template">
