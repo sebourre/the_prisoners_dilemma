@@ -922,11 +922,11 @@ const opponentMoves = [
 ]
 function linkMoveToColor(move){
     if(move == 'gold'){
-        move = 'var(--shade-a)';
-        return move;
+        const color = 'var(--shade-a)';
+        return color;
     }else if(move == 'violet'){
-        move = 'var(--shade-e)';
-        return move;
+        const color = 'var(--shade-e)';
+        return color;
     }
 }
 let reactive = .5;
@@ -945,11 +945,10 @@ function opponentMove(pM, cRO){
             // Antagonist
             if(pM == 'cooperate'){
                 move = 'violet';
-                cRO.style.backgroundColor = linkMoveToColor(move);
             }else if(pM == 'defect'){
                 move = 'gold';
-                cRO.style.backgroundColor = linkMoveToColor(move);
             }
+            cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
             break;
         case '3':
@@ -1213,13 +1212,13 @@ function updateScores(cRP, cRO){
         difference();
     }
     if(cRP.style.backgroundColor == cRO.style.backgroundColor){
-        if(cRP.style.backgroundColor == 'gold'){
+        if(cRP.style.backgroundColor == 'var(--shade-a)'){
             currentScorePlayer += rewardCC;
             lastRewardPlayer = rewardCC;
             currentScoreOpponent += rewardCC;
             lastRewardOpponent = rewardCC;
             displayScore(rewardCC, rewardCC, 'drawn (+0)', 'var(--purple-hue)');
-        }else if(cRP.style.backgroundColor == 'violet'){
+        }else if(cRP.style.backgroundColor == 'var(--shade-e)'){
             currentScorePlayer += rewardDD;
             lastRewardPlayer = rewardDD;
             currentScoreOpponent += rewardDD;
@@ -1227,13 +1226,13 @@ function updateScores(cRP, cRO){
             displayScore(rewardDD, rewardDD, 'drawn (+0)', 'var(--purple-hue)');
         }
     }else{
-        if(cRP.style.backgroundColor == 'gold'){
+        if(cRP.style.backgroundColor == 'var(--shade-a)'){
             currentScorePlayer += rewardCD;
             lastRewardPlayer = rewardCD;
             currentScoreOpponent += rewardDC;
             lastRewardOpponent = rewardDC;
             displayScore(rewardCD, rewardDC, 'lost (-5)', 'var(--red-hue)');
-        }else if(cRP.style.backgroundColor == 'violet'){
+        }else if(cRP.style.backgroundColor == 'var(--shade-e)'){
             currentScorePlayer += rewardDC;
             lastRewardPlayer = rewardDC;
             currentScoreOpponent += rewardCD;
