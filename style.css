@@ -770,7 +770,7 @@ input[type="checkbox"]{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: 105%;
+    left: calc(100% + 1rem);
     width: fit-content;
     height: fit-content;
     border: 5px solid var(--black-hue);
