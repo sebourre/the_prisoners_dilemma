@@ -4,13 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <link rel="icon" href="Downloads/key.svg">
+        <link rel="icon" href="downloads/key.svg">
         <title>The prisoner's dilemma</title>
     </head>
     <body>
         <button type="button" id="lock">
-            <img src="Downloads/lock-open.svg" id="lock_open">
-            <img src="Downloads/lock.svg" id="lock_closed">
+            <img src="downloads/lock-open.svg" id="lock_open">
+            <img src="downloads/lock.svg" id="lock_closed">
         </button>
 
         <div id="window_top_left"></div>
@@ -26,19 +26,19 @@
         <nav>
             <div class="menu_buttons_row" id="menu_buttons_row">
                 <button type="button" class="menu_button" id="button_adjustments">
-                    <img src="Downloads/adjustments.svg">
+                    <img src="downloads/adjustments.svg">
                 </button>
                 <button type="button" class="menu_button" id="button_opponent">
-                    <img src="Downloads/user.svg">
+                    <img src="downloads/user.svg">
                 </button>
                 <button type="button" class="menu_button" id="button_history">
-                    <img src="Downloads/clipboard-text.svg">
+                    <img src="downloads/clipboard-text.svg">
                 </button>
                 <button type="button" class="menu_button" id="button_rules">
-                    <img src="Downloads/help-hexagon.svg">
+                    <img src="downloads/help-hexagon.svg">
                 </button>
                 <button type="button" class="menu_button" id="button_settings">
-                    <img src="Downloads/settings.svg">
+                    <img src="downloads/settings.svg">
                 </button>
             </div>
             <div class="menu_content" id="menu_content">
@@ -63,16 +63,16 @@
                                 <select id="adjustments_opponents_select">
                                     <option value="1" selected>prisoner #16</option>
                                     <option value="2">prisoner #41</option>
-                                    <option value="3">prisoner #45</option>
-                                    <option value="4">prisoner #70</option>
+                                    <option value="3" style="background-color: yellow;" disabled>prisoner #45</option>
+                                    <option value="4" style="background-color: yellow;" disabled>prisoner #70</option>
                                     <option value="5">prisoner #92</option>
                                     <option value="6">prisoner #105</option>
                                     <option value="7">prisoner #111</option>
-                                    <option value="8">prisoner #129</option>
-                                    <option value="9">prisoner #132</option>
+                                    <option value="8" style="background-color: yellow;" disabled>prisoner #129</option>
+                                    <option value="9" style="background-color: yellow;" disabled>prisoner #132</option>
                                     <option value="10">prisoner #167</option>
-                                    <option value="11">prisoner #188</option>
-                                    <option value="12">prisoner #200</option>
+                                    <option value="11" style="background-color: yellow;" disabled>prisoner #188</option>
+                                    <option value="12" style="background-color: yellow;" disabled>prisoner #200</option>
                                 </select>
                                 <p class="section_content_additional" id="adjustments_opponents_additional">You will face <span></span></p>
                             </div>
@@ -116,7 +116,7 @@
                         <div class="section_content_row">
                             <button type="button" id="adjustments_button_apply">Apply</button>
                             <button type="button" id="adjustments_button_reset">
-                                <img src="Downloads/refresh.svg">
+                                <img src="downloads/refresh.svg">
                             </button>
                             <p id="adjustments_button_apply_error"></p>
                         </div>
@@ -445,10 +445,18 @@
                     </div>
                     <div class="section">
                         <div class="section_content_row">
+                            <p class="section_content_text">Reset rewards</p>
+                            <button type="button" class="section_content_button" id="settings_reset_rewards">
+                                <img src="downloads/a-b-2.svg">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="section_content_row">
                             <p class="section_content_text" id="settings_darkmode_text">Darkmode (off)</p>
                             <button type="button" class="section_content_button" id="settings_darkmode">
-                                <img src="Downloads/sun.svg">
-                                <img src="Downloads/moon.svg">
+                                <img src="downloads/sun.svg">
+                                <img src="downloads/moon.svg">
                             </button>
                         </div>
                     </div>
@@ -456,7 +464,7 @@
                         <div class="section_content_row">
                             <p class="section_content_text">Clear localStorage</p>
                             <button type="button" class="section_content_button" id="settings_clear_localstorage">
-                                <img src="Downloads/trash.svg">
+                                <img src="downloads/trash.svg">
                             </button>
                         </div>
                     </div>
@@ -468,22 +476,22 @@
             <div id="scoreboard_title">
                 Scoreboard
                 <div class="icon" id="scoreboard_icon">
-                    <img src="Downloads/chart-bar.svg">
+                    <img src="downloads/chart-bar.svg">
                 </div>
             </div>
             <p id="score_player">0</p>
             <p id="score_opponent">0</p>
             <div id="scoreboard_buttons">
                 <button type="button" class="scoreboard_button" id="scoreboard_button_info">
-                    <img src="Downloads/info-circle.svg">
+                    <img src="downloads/info-circle.svg">
                 </button>
                 <div id="scoreboard_round">Round 1</div>
                 <div id="scoreboard_result">Result</div>
                 <button type="button" class="scoreboard_button" id="scoreboard_button_wayback">
-                    <img src="Downloads/arrow-back-up.svg">
+                    <img src="downloads/arrow-back-up.svg">
                 </button>
                 <button type="button" class="scoreboard_button" id="scoreboard_button_restart">
-                    <img src="Downloads/rotate-clockwise.svg">
+                    <img src="downloads/rotate-clockwise.svg">
                 </button>
             </div>
         </div>
@@ -492,8 +500,8 @@
             <button type="button" id="button_cooperate">Cooperate</button>
             <button type="button" id="button_defect">Defect</button>
             <button type="button" id="button_middle">
-                <img src="Downloads/heart-handshake.svg">
-                <img src="Downloads/playstation-x.svg">
+                <img src="downloads/heart-handshake.svg">
+                <img src="downloads/playstation-x.svg">
             </button>
         </div>
 
@@ -501,7 +509,7 @@
             <div id="winrate_title">
                 Win rate
                 <div class="icon" id="winrate_icon">
-                    <img src="Downloads/activity-heartbeat.svg">
+                    <img src="downloads/activity-heartbeat.svg">
                 </div>
             </div>
             <p id="winrate_cooperate">50%</p>
@@ -514,48 +522,78 @@
             <div id="plus_title">
                 Plus
                 <div class="icon" id="plus_icon">
-                    <img src="Downloads/chevrons-up.svg">
+                    <img src="downloads/chevrons-up.svg">
                 </div>
             </div>
             <div id="plus_rules">
                 <div class="plus_rules_row">
                     <div class="plus_rules_row_item">
-                        <img src="Downloads/heart-handshake.svg">
-                        <p>+3</p>
+                        <img src="downloads/heart-handshake.svg">
+                        <p><span class="span_rewardCC"></span></p>
                     </div>
                     <div class="plus_rules_row_item">
-                        <p>+3</p>
-                        <img src="Downloads/heart-handshake.svg">
-                    </div>
-                </div>
-                <div class="plus_rules_row">
-                    <div class="plus_rules_row_item">
-                        <img src="Downloads/heart-handshake.svg">
-                        <p>+0</p>
-                    </div>
-                    <div class="plus_rules_row_item">
-                        <p>+5</p>
-                        <img src="Downloads/playstation-x.svg">
+                        <p><span class="span_rewardCC"></span></p>
+                        <img src="downloads/heart-handshake.svg">
                     </div>
                 </div>
                 <div class="plus_rules_row">
                     <div class="plus_rules_row_item">
-                        <img src="Downloads/playstation-x.svg">
-                        <p>+5</p>
+                        <img src="downloads/heart-handshake.svg">
+                        <p><span class="span_rewardCD"></span></p>
                     </div>
                     <div class="plus_rules_row_item">
-                        <p>+0</p>
-                        <img src="Downloads/heart-handshake.svg">
+                        <p><span class="span_rewardDC"></span></p>
+                        <img src="downloads/playstation-x.svg">
                     </div>
                 </div>
                 <div class="plus_rules_row">
                     <div class="plus_rules_row_item">
-                        <img src="Downloads/playstation-x.svg">
-                        <p>+1</p>
+                        <img src="downloads/playstation-x.svg">
+                        <p><span class="span_rewardDC"></span></p>
                     </div>
                     <div class="plus_rules_row_item">
-                        <p>+1</p>
-                        <img src="Downloads/playstation-x.svg">
+                        <p><span class="span_rewardCD"></span></p>
+                        <img src="downloads/heart-handshake.svg">
+                    </div>
+                </div>
+                <div class="plus_rules_row">
+                    <div class="plus_rules_row_item">
+                        <img src="downloads/playstation-x.svg">
+                        <p><span class="span_rewardDD"></span></p>
+                    </div>
+                    <div class="plus_rules_row_item">
+                        <p><span class="span_rewardDD"></span></p>
+                        <img src="downloads/playstation-x.svg">
+                    </div>
+                </div>
+            </div>
+            <div id="plus_rewards">
+                <div class="plus_rewards_row">
+                    <div class="plus_rewards_row_label">Reward C-C</div>
+                    <div>
+                        <button class="plus_rewards_row_button_plus" id="rewardCC_plus">Plus 1</button>
+                        <button class="plus_rewards_row_button_minus" id="rewardCC_minus">Minus 1</button>
+                    </div>
+                </div>
+                <div class="plus_rewards_row">
+                    <div class="plus_rewards_row_label">Reward C-D</div>
+                    <div>
+                        <button class="plus_rewards_row_button_plus" id="rewardCD_plus">Plus 1</button>
+                        <button class="plus_rewards_row_button_minus" id="rewardCD_minus">Minus 1</button>
+                    </div>
+                </div>
+                <div class="plus_rewards_row">
+                    <div class="plus_rewards_row_label">Reward D-C</div>
+                    <div>
+                        <button class="plus_rewards_row_button_plus" id="rewardDC_plus">Plus 1</button>
+                        <button class="plus_rewards_row_button_minus" id="rewardDC_minus">Minus 1</button>
+                    </div>
+                </div>
+                <div class="plus_rewards_row">
+                    <div class="plus_rewards_row_label">Reward D-D</div>
+                    <div>
+                        <button class="plus_rewards_row_button_plus" id="rewardDD_plus">Plus 1</button>
+                        <button class="plus_rewards_row_button_minus" id="rewardDD_minus">Minus 1</button>
                     </div>
                 </div>
             </div>
@@ -583,6 +621,10 @@
                     </div>
                     <div class="section_content_row">
                         <p class="section_content_text">Win rate:</p>
+                        <p class="section_content_text">...</p>
+                    </div>
+                    <div class="section_content_row">
+                        <p class="section_content_text">Gametime:</p>
                         <p class="section_content_text">...</p>
                     </div>
                     <div class="section_content_row">

@@ -34,6 +34,8 @@ const adjustmentsButtonApply = document.getElementById('adjustments_button_apply
 const adjustmentsButtonReset = document.getElementById('adjustments_button_reset');
 const adjustmentsButtonResetImg = adjustmentsButtonReset.querySelector('img');
 const adjustmentsButtonApplyError = document.getElementById('adjustments_button_apply_error');
+const settingsResetRewards = document.getElementById('settings_reset_rewards');
+const settingsResetRewardsImg = settingsResetRewards.querySelector('img');
 const settingsDarkmode = document.getElementById('settings_darkmode');
 const settingsDarkmodeText = document.getElementById('settings_darkmode_text');
 const settingsClearLocalStorage = document.getElementById('settings_clear_localstorage');
@@ -63,6 +65,18 @@ const winrateNumberOfCooperate = document.getElementById('winrate_number_of_coop
 const winrateNumberOfDefect = document.getElementById('winrate_number_of_defect');
 
 const plus = document.getElementById('plus');
+const spanRewardCC = document.getElementsByClassName('span_rewardCC');
+const spanRewardCD = document.getElementsByClassName('span_rewardCD');
+const spanRewardDC = document.getElementsByClassName('span_rewardDC');
+const spanRewardDD = document.getElementsByClassName('span_rewardDD');
+const rewardCCPlus = document.getElementById('rewardCC_plus');
+const rewardCCMinus = document.getElementById('rewardCC_minus');
+const rewardCDPlus = document.getElementById('rewardCD_plus');
+const rewardCDMinus = document.getElementById('rewardCD_minus');
+const rewardDCPlus = document.getElementById('rewardDC_plus');
+const rewardDCMinus = document.getElementById('rewardDC_minus');
+const rewardDDPlus = document.getElementById('rewardDD_plus');
+const rewardDDMinus = document.getElementById('rewardDD_minus');
 
 document.addEventListener('keydown', function(e){
     if(e.key === 'w'){
@@ -406,6 +420,52 @@ adjustmentsBonusesPlus.addEventListener('change', () => {
     }
 });
 
+const rewards = {
+  CC: 3,
+  CD: 0,
+  DC: 5,
+  DD: 1
+};
+function updateRewards(){
+    for(i=0; i<spanRewardCC.length; i++){
+        spanRewardCC[i].textContent = addSign(rewards.CC);
+    }
+    for(i=0; i<spanRewardCD.length; i++){
+        spanRewardCD[i].textContent = addSign(rewards.CD);
+    }
+    for(i=0; i<spanRewardDC.length; i++){
+        spanRewardDC[i].textContent = addSign(rewards.DC);
+    }
+    for(i=0; i<spanRewardDD.length; i++){
+        spanRewardDD[i].textContent = addSign(rewards.DD);
+    }
+}
+function addSign(reward){
+    if(reward >= 0){
+        return `+${reward}`;
+    }else{
+        return `${reward}`;
+    }
+}
+updateRewards();
+
+rewardCCPlus.addEventListener('click', () => rewardPlus('CC'));
+rewardCDPlus.addEventListener('click', () => rewardPlus('CD'));
+rewardDCPlus.addEventListener('click', () => rewardPlus('DC'));
+rewardDDPlus.addEventListener('click', () => rewardPlus('DD'));
+function rewardPlus(key){
+    rewards[key] += 1;
+    updateRewards();
+}
+rewardCCMinus.addEventListener('click', () => rewardMinus('CC'));
+rewardCDMinus.addEventListener('click', () => rewardMinus('CD'));
+rewardDCMinus.addEventListener('click', () => rewardMinus('DC'));
+rewardDDMinus.addEventListener('click', () => rewardMinus('DD'));
+function rewardMinus(key){
+    rewards[key] -= 1;
+    updateRewards();
+}
+
 adjustmentsColorsDefault.onclick = function(){
     adjustmentsColorsDefault.style.border = '3px solid var(--blue-hue)';
     adjustmentsColorsSunset.style.border = '3px solid var(--black-hue)';
@@ -438,6 +498,7 @@ adjustmentsColorsSlime.onclick = function(){
 }
 
 let isGameOngoing = false;
+let startGametime;
 adjustmentsButtonApply.onclick = function(){
     if(isNumberOfRoundsCorrect(adjustmentsRoundsInput.value) && !isGameOngoing){
         const previousOpponentValue = currentOpponentValue;
@@ -449,6 +510,7 @@ adjustmentsButtonApply.onclick = function(){
         onOpponentClick();
         adjustmentsButtonApplyError.textContent = '';
         isGameOngoing = true;
+        startGametime = Date.now();
         disableInputs();
     }else if(isGameOngoing){
         adjustmentsButtonApplyError.textContent = 'Reset the ongoing game first.';
@@ -627,6 +689,17 @@ document.getElementById('legend').addEventListener('click', () => hideContent('l
 
 // Settings
 document.getElementById('sources').addEventListener('click', () => hideContent('sources'));
+
+function resetRewards(){
+    rewards.CC = 3;
+    rewards.CD = 0;
+    rewards.DC = 5;
+    rewards.DD = 1;
+    updateRewards();
+    settingsResetRewardsImg.style.animation = 'turning .3s linear';
+    setTimeout(() => {settingsResetRewardsImg.style.animation = 'none';}, 300);
+}
+settingsResetRewards.onclick = resetRewards;
 
 function setDarkmode(){
     document.body.style.backgroundImage = 'linear-gradient(135deg, var(--shade-a), var(--black-hue), var(--shade-e))';
@@ -822,6 +895,8 @@ scoreboardButtonRestart.onclick = function(){
 
         document.getElementById(`round${currentRound}_player`).style.border = '3px solid var(--blue-hue)';
         document.getElementById(`round${currentRound}_opponent`).style.border = '3px solid var(--blue-hue)';
+
+        startGametime = Date.now();
     }, 800);
 }
 
@@ -1171,15 +1246,11 @@ function opponentMove(pM, cRO){
 let lastRewardPlayer;
 let lastRewardOpponent;
 function updateScores(cRP, cRO){
-    const rewardCC = 3;
-    const rewardCD = 0;
-    const rewardDC = 5;
-    const rewardDD = 1;
     function displayScore(rewardPlayer, rewardOpponent, diff, color){
         scorePlayer.textContent = currentScorePlayer;
-        cRP.textContent = '+' + rewardPlayer; 
+        cRP.textContent = addSign(rewardPlayer); 
         scoreOpponent.textContent = currentScoreOpponent;
-        cRO.textContent = '+' + rewardOpponent; 
+        cRO.textContent = addSign(rewardOpponent); 
         if(currentScorePlayer < currentScoreOpponent){
             scorePlayer.style.backgroundColor = 'var(--red-hue)';
             scoreOpponent.style.backgroundColor = 'var(--blue-hue)';
@@ -1213,31 +1284,31 @@ function updateScores(cRP, cRO){
     }
     if(cRP.style.backgroundColor == cRO.style.backgroundColor){
         if(cRP.style.backgroundColor == 'var(--shade-a)'){
-            currentScorePlayer += rewardCC;
-            lastRewardPlayer = rewardCC;
-            currentScoreOpponent += rewardCC;
-            lastRewardOpponent = rewardCC;
-            displayScore(rewardCC, rewardCC, 'drawn (+0)', 'var(--purple-hue)');
+            currentScorePlayer += rewards.CC;
+            lastRewardPlayer = rewards.CC;
+            currentScoreOpponent += rewards.CC;
+            lastRewardOpponent = rewards.CC;
+            displayScore(rewards.CC, rewards.CC, 'drawn (+0)', 'var(--purple-hue)');
         }else if(cRP.style.backgroundColor == 'var(--shade-e)'){
-            currentScorePlayer += rewardDD;
-            lastRewardPlayer = rewardDD;
-            currentScoreOpponent += rewardDD;
-            lastRewardOpponent = rewardDD;
-            displayScore(rewardDD, rewardDD, 'drawn (+0)', 'var(--purple-hue)');
+            currentScorePlayer += rewards.DD;
+            lastRewardPlayer = rewards.DD;
+            currentScoreOpponent += rewards.DD;
+            lastRewardOpponent = rewards.DD;
+            displayScore(rewards.DD, rewards.DD, 'drawn (+0)', 'var(--purple-hue)');
         }
     }else{
         if(cRP.style.backgroundColor == 'var(--shade-a)'){
-            currentScorePlayer += rewardCD;
-            lastRewardPlayer = rewardCD;
-            currentScoreOpponent += rewardDC;
-            lastRewardOpponent = rewardDC;
-            displayScore(rewardCD, rewardDC, 'lost (-5)', 'var(--red-hue)');
+            currentScorePlayer += rewards.CD;
+            lastRewardPlayer = rewards.CD;
+            currentScoreOpponent += rewards.DC;
+            lastRewardOpponent = rewards.DC;
+            displayScore(rewards.CD, rewards.DC, `lost (-${rewards.DC})`, 'var(--red-hue)');
         }else if(cRP.style.backgroundColor == 'var(--shade-e)'){
-            currentScorePlayer += rewardDC;
-            lastRewardPlayer = rewardDC;
-            currentScoreOpponent += rewardCD;
-            lastRewardOpponent = rewardCD;
-            displayScore(rewardDC, rewardCD, 'won (+5)', 'var(--blue-hue)');
+            currentScorePlayer += rewards.DC;
+            lastRewardPlayer = rewards.DC;
+            currentScoreOpponent += rewards.CD;
+            lastRewardOpponent = rewards.CD;
+            displayScore(rewards.DC, rewards.CD, `won (+${rewards.DC})`, 'var(--blue-hue)');
         }
     }
 }
@@ -1265,8 +1336,10 @@ function updateHistory(){
     texts[2].textContent = `${currentScorePlayer}/${currentScoreOpponent}`;
     texts[3].textContent = isWaybackUsed;
     texts[4].textContent = winrateCooperate.textContent;
+    const endGametime = Date.now() - startGametime;
+    texts[5].textContent = Math.floor(endGametime / 1000) + "s";
     const date = new Date();
-    texts[5].textContent = date.toLocaleString();
+    texts[6].textContent = date.toLocaleString();
     history.appendChild(clone);
     const ID = gameID;
     document.getElementById(`game${gameID}`).addEventListener('click', () => hideContent(`game${ID}`));

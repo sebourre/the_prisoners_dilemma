@@ -41,7 +41,7 @@ body{
 
 @font-face{
     font-family: 'Ground';
-    src: url('Downloads/Ground.ttf') format('truetype');
+    src: url('downloads/Ground.ttf') format('truetype');
 }
 
 a{
@@ -729,7 +729,7 @@ input[type="checkbox"]{
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 10px;
-    background-image: url(Downloads/arrow-back-up.svg);
+    background-image: url(downloads/arrow-back-up.svg);
     background-size: cover;
     background-position: center;
 }
@@ -761,6 +761,18 @@ input[type="checkbox"]{
 #settings_darkmode img:nth-child(2){
     display: none;
     filter: invert(1);
+}
+
+@keyframes turning{
+    0%, 50%, 100% {
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(-10deg);
+    }
+    75%{
+        transform: rotate(10deg);
+    }
 }
 
 /* Icons */
@@ -1174,4 +1186,56 @@ input[type="checkbox"]{
 .plus_rules_row_item img{
     width: 36px;
     height: 36px; 
+}
+
+#plus_rewards{
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    padding: .5rem 0 .5rem 0;
+    width: 100%;
+    height: fit-content;
+}
+
+.plus_rewards_row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+}
+
+.plus_rewards_row_label{
+    width: fit-content;
+    height: fit-content;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.plus_rewards_row_button_plus{
+    padding: 5px 0 5px 0;
+    width: 75px;
+    color: var(--white-hue);
+    font-size: 1rem;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: var(--blue-hue);
+    user-select: none;
+}
+.plus_rewards_row_button_plus:hover{
+    border: 2px solid var(--white-hue);
+}
+
+.plus_rewards_row_button_minus{
+    padding: 5px 0 5px 0;
+    width: 75px;
+    color: var(--white-hue);
+    font-size: 1rem;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    background-color: var(--red-hue);
+    user-select: none;
+}
+.plus_rewards_row_button_minus:hover{
+    border: 2px solid var(--white-hue);
 }
