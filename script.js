@@ -1057,7 +1057,7 @@ function opponentMove(pM, cRO){
             break;
         case '5': 
             // Tit for two tats
-            if(currentRound <= 2 || previousRoundOpponent.style.backgroundColor == 'violet'){
+            if(currentRound <= 2 || previousRoundOpponent.style.backgroundColor == 'var(--shade-e)'){
                 move = 'gold';
             }else{
                 const previous2RoundPlayer = document.getElementById(`round${currentRound - 2}_player`);
@@ -1138,7 +1138,11 @@ function opponentMove(pM, cRO){
                 }
             }else{
                 const previous2RoundOpponent = document.getElementById(`round${currentRound - 2}_opponent`);
-                move = previous2RoundOpponent.style.backgroundColor;
+                if(previous2RoundOpponent.style.backgroundColor == 'var(--shade-a)'){
+                    move = 'gold';
+                }else{
+                    move = 'violet';
+                }
             }
             cRO.style.backgroundColor = linkMoveToColor(move);
             updateWinrate(move, false);
