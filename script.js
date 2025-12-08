@@ -1031,9 +1031,9 @@ function opponentMove(pM, cRO){
             if(currentRound == 1){
                 move = 'gold';
             }else{
-                if(previousRoundPlayer.style.backgroundColor == 'gold'){
+                if(previousRoundPlayer.style.backgroundColor == 'var(--shade-a)'){
                     move = 'gold';
-                }else if(previousRoundPlayer.style.backgroundColor == 'violet'){
+                }else if(previousRoundPlayer.style.backgroundColor == 'var(--shade-e)'){
                     move = 'violet';
                 }
             }
@@ -1046,9 +1046,9 @@ function opponentMove(pM, cRO){
                 move = 'gold';
             }else{
                 const previous2RoundPlayer = document.getElementById(`round${currentRound - 2}_player`);
-                if(previous2RoundPlayer.style.backgroundColor == 'gold'){
+                if(previous2RoundPlayer.style.backgroundColor == 'var(--shade-a)'){
                     move = 'gold';
-                }else if(previous2RoundPlayer.style.backgroundColor == 'violet'){
+                }else if(previous2RoundPlayer.style.backgroundColor == 'var(--shade-e)'){
                     move = 'violet';
                 }
             }
@@ -1061,7 +1061,7 @@ function opponentMove(pM, cRO){
                 move = 'gold';
             }else{
                 const previous2RoundPlayer = document.getElementById(`round${currentRound - 2}_player`);
-                if(previousRoundPlayer.style.backgroundColor == 'violet' && previous2RoundPlayer.style.backgroundColor == 'violet'){
+                if(previousRoundPlayer.style.backgroundColor == 'var(--shade-e)' && previous2RoundPlayer.style.backgroundColor == 'var(--shade-e)'){
                     move = 'violet';
                 }else{
                     move = 'gold';
@@ -1076,11 +1076,11 @@ function opponentMove(pM, cRO){
                 move = 'gold';
             }else{
                 const previous2RoundOpponent = document.getElementById(`round${currentRound - 2}_opponent`);
-                if(previousRoundOpponent.style.backgroundColor == 'violet' && previous2RoundOpponent.style.backgroundColor == 'violet'){
+                if(previousRoundOpponent.style.backgroundColor == 'var(--shade-e)' && previous2RoundOpponent.style.backgroundColor == 'var(--shade-e)'){
                     move = 'gold';
-                }else if(previousRoundOpponent.style.backgroundColor == 'violet'){
+                }else if(previousRoundOpponent.style.backgroundColor == 'var(--shade-e)'){
                     move = 'violet';
-                }else if(previousRoundPlayer.style.backgroundColor == 'violet'){
+                }else if(previousRoundPlayer.style.backgroundColor == 'var(--shade-e)'){
                     move = 'violet';
                 }else{
                     move = 'gold';
@@ -1094,9 +1094,9 @@ function opponentMove(pM, cRO){
             if(currentRound == 1){
                 move = 'gold';
             }else{
-                if(previousRoundOpponent.style.backgroundColor == 'violet'){
+                if(previousRoundOpponent.style.backgroundColor == 'var(--shade-e)'){
                     move = 'violet';
-                }else if(previousRoundPlayer.style.backgroundColor == 'violet'){
+                }else if(previousRoundPlayer.style.backgroundColor == 'var(--shade-e)'){
                     move = 'violet';
                 }else{
                     move = 'gold';
@@ -1110,14 +1110,14 @@ function opponentMove(pM, cRO){
             if(currentRound == 1){
                 move = 'gold';
             }else{
-                if(previousRoundPlayer.style.backgroundColor == 'gold'){
+                if(previousRoundPlayer.style.backgroundColor == 'var(--shade-a)'){
                     let r = Math.random();
                     if(r <= .1){
                         move = 'violet';
                     }else{
                         move = 'gold';
                     }
-                }else if(previousRoundPlayer.style.backgroundColor == 'violet'){
+                }else if(previousRoundPlayer.style.backgroundColor == 'var(--shade-e)'){
                     move = 'violet';
                 }
             }
@@ -1131,9 +1131,9 @@ function opponentMove(pM, cRO){
             }else if(currentRound == 2){
                 move = 'gold';
             }else if(currentRound == 3){
-                if(previousRoundPlayer.style.backgroundColor == 'gold'){
+                if(previousRoundPlayer.style.backgroundColor == 'var(--shade-a)'){
                     move = 'gold';
-                }else if(previousRoundPlayer.style.backgroundColor == 'violet'){
+                }else if(previousRoundPlayer.style.backgroundColor == 'var(--shade-e)'){
                     move = 'violet';
                 }
             }else{
@@ -1173,7 +1173,7 @@ function opponentMove(pM, cRO){
                     move = 'violet';
                 }
             }else{
-                if(previousRoundPlayer.style.backgroundColor == 'gold'){
+                if(previousRoundPlayer.style.backgroundColor == 'var(--shade-a)'){
                     if(reactive < 1){
                         reactive += 0.1;
                         console.log(reactive);
@@ -1207,28 +1207,28 @@ function opponentMove(pM, cRO){
                 }else{
                     move = 'violet';
                 }
-            }else if(previousRoundPlayer.style.backgroundColor == 'gold' && previousRoundOpponent.style.backgroundColor == 'gold'){
+            }else if(previousRoundPlayer.style.backgroundColor == 'var(--shade-a)' && previousRoundOpponent.style.backgroundColor == 'var(--shade-a)'){
                 let r = Math.random();
                 if(r <= cc){
                     move = 'gold';
                 }else{
                     move = 'violet';
                 }
-            }else if(previousRoundPlayer.style.backgroundColor == 'gold' && previousRoundOpponent.style.backgroundColor == 'violet'){
+            }else if(previousRoundPlayer.style.backgroundColor == 'var(--shade-a)' && previousRoundOpponent.style.backgroundColor == 'var(--shade-e)'){
                 let r = Math.random();
                 if(r <= cd){
                     move = 'gold';
                 }else{
                     move = 'violet';
                 }
-            }else if(previousRoundPlayer.style.backgroundColor == 'violet' && previousRoundOpponent.style.backgroundColor == 'gold'){
+            }else if(previousRoundPlayer.style.backgroundColor == 'var(--shade-e)' && previousRoundOpponent.style.backgroundColor == 'var(--shade-a)'){
                 let r = Math.random();
                 if(r <= dc){
                     move = 'gold';
                 }else{
                     move = 'violet';
                 }
-            }else if(previousRoundPlayer.style.backgroundColor == 'violet' && previousRoundOpponent.style.backgroundColor == 'violet'){
+            }else if(previousRoundPlayer.style.backgroundColor == 'var(--shade-e)' && previousRoundOpponent.style.backgroundColor == 'var(--shade-e)'){
                 let r = Math.random();
                 if(r <= dd){
                     move = 'gold';
