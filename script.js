@@ -1184,12 +1184,14 @@ function opponentMove(pM, cRO){
                 if(previousRoundPlayer.style.backgroundColor == 'var(--shade-a)'){
                     if(reactive < 1){
                         reactive += 0.1;
-                        console.log(reactive);
+                        reactive = Math.round(reactive * 10) / 10;
+                        if(reactive > 1){reactive = 1;}
                     }
                 }else{
                     if(reactive > 0){
                         reactive -= 0.2;
-                        console.log(reactive);
+                        reactive = Math.round(reactive * 10) / 10;
+                        if(reactive < 0){reactive = 0;}
                     }
                 }
                 let r = Math.random();
