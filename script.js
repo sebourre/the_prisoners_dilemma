@@ -821,6 +821,10 @@ scoreboardButtonWayback.onclick = function(){
         }
         scoreboardResult.style.backgroundColor = 'var(--blue-hue)';
         scoreboardResult.textContent = 'Wayback used';
+        document.getElementById(`round${currentRound}_player`).style.border = '3px solid var(--blue-hue)';
+        document.getElementById(`round${currentRound}_opponent`).style.border = '3px solid var(--blue-hue)';
+        document.getElementById(`round${currentRound + 1}_player`).style.border = '3px solid var(--black-hue)';
+        document.getElementById(`round${currentRound + 1}_opponent`).style.border = '3px solid var(--black-hue)';
     }
 }
 
