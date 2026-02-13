@@ -1172,7 +1172,6 @@ function opponentMove(pM, cRO){
             break;
         case '11': 
             // Reactive 
-            // ! Problèmes d'incrémentation/décrémentation de variable + wayback pas update
             if(currentRound == 1){
                 let r = Math.random();
                 if(r <= reactive){
